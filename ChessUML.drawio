@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-29T14:54:59.798Z" agent="5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36" etag="1XfR1T-BJ6jJP1FXZJsh" version="15.8.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-29T14:55:53.152Z" agent="5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36" etag="Bhx1n5zXi3VuzD8BZfyJ" version="15.8.6" type="github">
   <diagram id="GS2cKgzN8PQniIcKK5sv" name="Page-1">
     <mxGraphModel dx="841" dy="687" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -66,7 +66,7 @@
         <mxCell id="E_RCuXJ4IqIj-VpBacVf-32" value="Board" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="340" y="410" width="260" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="E_RCuXJ4IqIj-VpBacVf-33" value="+ move (from : Position, to : Position) &#xa;+ is_over () : string &#xa;+ get_last_move () : Move&#xa;+ resign()&#xa;+ setup_add (Piece : string, position : string)&#xa;+ setup_remove (Piece : string)&#xa;+ setup_color (color : string)&#xa;+ check_setup () : Boolean&#xa;+ add_player (player1 : string, color : char)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="E_RCuXJ4IqIj-VpBacVf-32" vertex="1">
+        <mxCell id="E_RCuXJ4IqIj-VpBacVf-33" value="+ move (from : Position, to : Position) &#xa;+ is_over () : string &#xa;+ get_last_move () : Move&#xa;+ resign()&#xa;+ setup_add (Piece : string, position : string)&#xa;+ setup_remove (Piece : string)&#xa;+ setup_color (color : string)&#xa;+ check_setup () : Boolean&#xa;+ add_player (player : string, color : char)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="E_RCuXJ4IqIj-VpBacVf-32" vertex="1">
           <mxGeometry y="26" width="260" height="134" as="geometry" />
         </mxCell>
         <mxCell id="E_RCuXJ4IqIj-VpBacVf-37" value="ComputerPlayer" style="swimlane;fontStyle=2;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
