@@ -7,14 +7,10 @@
 
 class TextObserver : public Observer
 {
-  ChessView *board = nullptr;
-  const int top = 0;
-  const int bottom = 0;
-  const int left = 0;
-  const int right = 0;
+  shared_ptr<ChessView> board;
 
 public:
-  TextObserver(ChessView *board);
+  TextObserver(shared_ptr<ChessView> board);
   void notify() override;
   ~TextObserver();
 };
