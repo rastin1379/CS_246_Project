@@ -3,10 +3,11 @@
 
 using namespace std;
 
-ChessView::run() {
+void ChessView::run() {
 	string command;
 	board = make_shared<Board>();
 	observers.push_back(make_shared<TextObserver>(board));
+	board.attach(observers[0]);
 	controller = ChessController(board);
 	while (cin >> command) {
 		if (command == "game") {

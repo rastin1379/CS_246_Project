@@ -3,6 +3,8 @@
 
 #include "subject.h"
 #include <memory>
+#include <map>
+#include <vector>
 #include "move.h"
 #include "position.h"
 #include "piece.h"
@@ -20,16 +22,33 @@
 
 const int board_size = 8;
 
-class Board {
+class GameError {
+	private:
+	string message;
+
+	public:
+	GameError(string message): message{ message } {}
+	void get_message() { return message; }
+};
+
+class Board : public Subject{
 	private:
 	std::vector<Move> moves;
-	std::map<std::string, char> players;
-	shared_ptr<Piece> [board_size][board_size];	
-	
+	std::map<char, std::string> players;
+	shared_ptr<Piece> [board_size][board_size] board;	
+	char turn;
+	void setup_standard();
+	bool is_board_empty();
+
 	public:	
-	get_board();
-	add_player(string player, char color);
-	start();
+	shared_ptr<Piece> [board_size][board_size] get_board();
+	void add_player(string player, char color);
+	void start();
+	void setup_add(Piece piece, Position p);
+	void setup_remove(Position p);
+	void setup_color(char color);
+	bool check_setup();
+	void clean_board();
 };
 
 #endif

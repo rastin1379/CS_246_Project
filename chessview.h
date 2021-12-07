@@ -6,11 +6,13 @@
 #include "observer.h"
 #include <memory>
 #include "board.h"
+#include <vector>
 
 class ChessView {
 	public:
 	// runs the chess program
-	run();
+	void run();
+	
 	private:
 	ChessController controller;
 	Board board;

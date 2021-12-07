@@ -6,13 +6,11 @@ class Observer;
 
 class Subject
 {
-  std::vector<Observer *> observers;
+  std::vector<shared_ptr<Observer>> observers;
 
 public:
-  void attach(Observer *o);
-  void detach(Observer *o);
+  void attach(shared_ptr<Observer>);
   void notifyObservers();
-  virtual char getChar(int rows, int cols) const = 0;
   virtual ~Subject() = default;
 };
 
