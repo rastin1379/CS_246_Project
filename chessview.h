@@ -5,6 +5,7 @@
 #include "chesscontroller.h"
 #include "observer.h"
 #include <memory>
+#include "board.h"
 
 class ChessView {
 	public:
