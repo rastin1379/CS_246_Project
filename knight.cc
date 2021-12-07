@@ -1,3 +1,3 @@
 #include "knight.h"
 
-Knight::Knight(char type) Piece{type} {}
+Knight::Knight(char type): Piece{type} {}

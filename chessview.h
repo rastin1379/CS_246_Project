@@ -12,11 +12,6 @@ class ChessView {
 	public:
 	// runs the chess program
 	void run();
-	
-	private:
-	ChessController controller;
-	Board board;
-	std::vector<std::shared_ptr<Observer>> observers;	
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "chessview.h"
 
 int main() {
-	ChessView program;
+	ChessView program {};
 	program.run();
 }

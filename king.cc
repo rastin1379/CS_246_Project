@@ -1,3 +1,3 @@
 #include "king.h"
 
-King::King(char type) Piece{type} {}
+King::King(char type): Piece{type} {}

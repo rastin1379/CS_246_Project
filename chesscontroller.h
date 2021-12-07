@@ -2,13 +2,14 @@
 #define CHESSCONTROLLER_H
 
 #include "board.h"
+#include <memory>
 
 class ChessController {
 	private:
-	Board board;	
+	std::shared_ptr<Board> board;	
 	
 	public:
-	ChessController(std::shared_ptr board);
+	ChessController(std::shared_ptr<Board> board);
 	void start(std::string player1, std::string player2);
 };
 

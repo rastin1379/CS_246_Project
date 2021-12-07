@@ -2,4 +2,4 @@
 
 Piece::Piece(char type): type{ type } {}
 
-char Piece::getType() { return type; }
+char Piece::get_type() { return type; }

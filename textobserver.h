@@ -3,16 +3,16 @@
 #include <vector>
 #include <iostream>
 #include "observer.h"
-#include "subject.h"
+#include "board.h"
 
 class TextObserver : public Observer
 {
-  shared_ptr<ChessView> board;
+	std::shared_ptr<Board> board;
 
-public:
-  TextObserver(shared_ptr<ChessView> board);
-  void notify() override;
-  ~TextObserver();
+	public:
+  	TextObserver(std::shared_ptr<Board> board);
+  	void notify() override;
+  	~TextObserver();
 };
 
 #endif

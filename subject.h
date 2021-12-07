@@ -1,15 +1,17 @@
 #ifndef SUBJECT_H
 #define SUBJECT_H
 #include <vector>
+#include <memory>
 
 class Observer;
 
 class Subject
 {
-  std::vector<shared_ptr<Observer>> observers;
+  std::vector<Observer *> observers;
 
 public:
-  void attach(shared_ptr<Observer>);
+  void attach(Observer *);
+  void detach(Observer *);
   void notifyObservers();
   virtual ~Subject() = default;
 };

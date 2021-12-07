@@ -5,10 +5,11 @@ using namespace std;
 
 void ChessView::run() {
 	string command;
-	board = make_shared<Board>();
+	auto board = make_shared<Board>();
+	vector<shared_ptr<TextObserver>> observers;
+	
 	observers.push_back(make_shared<TextObserver>(board));
-	board.attach(observers[0]);
-	controller = ChessController(board);
+	ChessController controller = ChessController(board);
 	while (cin >> command) {
 		if (command == "game") {
 			string p1;

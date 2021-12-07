@@ -24,27 +24,29 @@ const int board_size = 8;
 
 class GameError {
 	private:
-	string message;
+	std::string message;
 
 	public:
-	GameError(string message): message{ message } {}
-	void get_message() { return message; }
+	GameError(std::string message): message{ message } {}
+	std::string get_message() { return message; }
 };
 
 class Board : public Subject{
 	private:
-	std::vector<Move> moves;
+	//std::vector<Move> moves;
 	std::map<char, std::string> players;
-	shared_ptr<Piece> [board_size][board_size] board;	
+	std::vector<std::vector<std::shared_ptr<Piece>>> board;	
 	char turn;
 	void setup_standard();
 	bool is_board_empty();
+	void make_board_empty();
 
 	public:	
-	shared_ptr<Piece> [board_size][board_size] get_board();
-	void add_player(string player, char color);
+	Board();
+	std::vector<std::vector<std::shared_ptr<Piece>>> get_board();
+	void add_player(std::string player, char color);
 	void start();
-	void setup_add(Piece piece, Position p);
+	void setup_add(std::shared_ptr<Piece> piece, Position p);
 	void setup_remove(Position p);
 	void setup_color(char color);
 	bool check_setup();

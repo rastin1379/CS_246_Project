@@ -1,3 +1,3 @@
 #include "rook.h"
 
-Rook::Rook(char type) Piece{type} {}
+Rook::Rook(char type): Piece{type} {}
