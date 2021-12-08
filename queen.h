@@ -9,8 +9,14 @@ class Queen : public Piece {
 	public:
 	Queen(char type);
 
-	bool is_valied_move(std::vector<std::vector<std::shared_ptr<Piece>>> board,
+	bool is_valid_move(std::vector<std::vector<std::shared_ptr<Piece>>> board,
              Position from,Position to) override;
+	
+	bool is_diagonal(std::vector<std::vector<std::shared_ptr<Piece>>> board,
+             Position from,Position to);
+
+	bool is_straight(std::vector<std::vector<std::shared_ptr<Piece>>> board,
+             Position from,Position to);
 };
 
 #endif

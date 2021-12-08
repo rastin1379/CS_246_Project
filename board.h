@@ -40,6 +40,7 @@ class Board : public Subject{
 	void setup_standard();
 	bool is_board_empty();
 	void make_board_empty();
+	void change_turn();
 
 	public:	
 	Board();

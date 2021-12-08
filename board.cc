@@ -12,17 +12,25 @@ void Board::move(Position from, Position to) {
 		// castle
 	}
 	else {
-		if (board[from.get_y()][from.get_x()]->is_valied_move(board, from, to)) {
+		if (board[from.get_y()][from.get_x()]->get_color() != turn) {
+			throw GameError{"invalid color"};
+		}
+		if (from.get_x() == to.get_x() && from.get_y() == to.get_y()) {
+			 throw GameError{"no move detected"};	
+		}
+		if (board[from.get_y()][from.get_x()]->is_valid_move(board, from, to)) {
 			moves.emplace_back(board[from.get_y()][from.get_x()],
 					board[to.get_y()][to.get_x()],
 					from, to);
 			board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
+			board[from.get_y()][from.get_x()]->add_move_counts();
 			board[from.get_y()][from.get_x()] = nullptr;
 		} else {
 			throw GameError{"invalid move"};
 		}	
 	}
 	// check win ...
+	change_turn();
 	notifyObservers();	
 }
 
@@ -105,4 +113,13 @@ bool Board::is_board_empty() {
 		}
 	} 
 	return true;
+}
+
+void Board::change_turn() {
+	if (turn == 'w') {
+		turn = 'b';
+	}
+	else {
+		turn = 'w';
+	}
 }
