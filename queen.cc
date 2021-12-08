@@ -1,11 +1,13 @@
 #include "queen.h"
+#include "board.h"
 
 using namespace std;
 
 Queen::Queen(char type): Piece{type} {}
 
-bool Queen::is_valid_move(std::vector<std::vector<std::shared_ptr<Piece>>> board,
+bool Queen::is_valid_move(Board * board_obj,
              Position from,Position to) {
+	vector<vector<shared_ptr<Piece>>> board = board_obj->get_board();
 	if (abs(from.get_y() - to.get_y()) == abs(from.get_x() - to.get_x()) &&
               (board[to.get_y()][to.get_x()] == nullptr ||
                board[to.get_y()][to.get_x()]->get_color() != get_color())) {

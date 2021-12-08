@@ -1,10 +1,12 @@
 #include "bishop.h"
 #include <cmath> 
+#include "board.h"
 
 Bishop::Bishop(char type): Piece{type} {}
 
-bool Bishop::is_valid_move(std::vector<std::vector<std::shared_ptr<Piece>>> board,
+bool Bishop::is_valid_move(Board * board_obj,
              Position from,Position to) {
+        std::vector<std::vector<std::shared_ptr<Piece>>> board = board_obj->get_board();
 	if (abs(from.get_y() - to.get_y()) == abs(from.get_x() - to.get_x()) &&
               (board[to.get_y()][to.get_x()] == nullptr ||
                board[to.get_y()][to.get_x()]->get_color() != get_color())) {

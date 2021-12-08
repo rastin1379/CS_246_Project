@@ -9,7 +9,7 @@ class Queen : public Piece {
 	public:
 	Queen(char type);
 
-	bool is_valid_move(std::vector<std::vector<std::shared_ptr<Piece>>> board,
+	bool is_valid_move(Board * board_obj,
              Position from,Position to) override;
 	
 	bool is_diagonal(std::vector<std::vector<std::shared_ptr<Piece>>> board,

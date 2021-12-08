@@ -29,7 +29,14 @@ void ChessController::move(std::string commands) {
     			size++;
 		}
 		if (size == 3) {
-			// pawn promotion
+			try {
+				Position from = make_position(move_commands[0]);
+                                Position to = make_position(move_commands[1]);
+				char promoted = move_commands[2][0];
+				board->move_promotion(from, to, promoted);
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
 		}	
 		else {
 			try {

@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+class Board;
+
 class Piece {
 	private:
 	char type;
@@ -17,8 +19,7 @@ class Piece {
 	void add_move_counts();	
 	char get_piece_type();
 	char get_color();
-	virtual bool is_valid_move(std::vector<std::vector<std::shared_ptr<Piece>>> board,
-		       Position	from,Position to) = 0;
+	virtual bool is_valid_move(Board *board_obj, Position from,Position to) = 0;
 };
 
 #endif

@@ -41,6 +41,12 @@ class Board : public Subject{
 	bool is_board_empty();
 	void make_board_empty();
 	void change_turn();
+	void handle_king_move(Position from, Position to);
+	void handle_pawn_move(Position from, Position to);
+	void add_castle_move(Position king_from, Position king_to, Position rook_from, Position rook_to);
+	void promote(Position from, Position to, char promoted);
+	void handle_next_turn();
+	Position get_position_piece(char name);
 
 	public:	
 	Board();
@@ -53,6 +59,10 @@ class Board : public Subject{
 	bool check_setup();
 	void clean_board();
 	void move(Position from, Position to);
+	bool is_position_check(Position p, char color);
+	void move_promotion(Position from, Position to, char promoted);
+        string analyze_state();
+	void undo();
 };
 
 #endif
