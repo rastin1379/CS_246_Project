@@ -1,26 +1,37 @@
 #include "chessview.h"
 #include "textobserver.h"
+#include <iostream>
 
 using namespace std;
 
-void ChessView::run() {
+void ChessView::run()
+{
 	string command;
 	auto board = make_shared<Board>();
 	vector<shared_ptr<TextObserver>> observers;
-	
+
 	observers.push_back(make_shared<TextObserver>(board));
 	ChessController controller = ChessController(board);
-	while (cin >> command) {
-		if (command == "game") {
+	while (cin >> command)
+	{
+		if (command == "game")
+		{
 			string p1;
 			string p2;
-			cin  >> p1 >> p2;
+			cin >> p1 >> p2;
 			controller.start(p1, p2);
 		}
-		if (command == "move") {
+		if (command == "move")
+		{
 			string move_commands;
 			getline(cin, move_commands);
 			controller.move(move_commands);
 		}
-	}	
+		if (command == "resign")
+		{
+			// TO DO: find which player concedes defeat
+			// std::cout << "the #COLOUR player concedes defeat. #OPPONENT_COLOUR wins"
+			return;
+		}
+	}
 }
