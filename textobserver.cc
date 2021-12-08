@@ -21,7 +21,7 @@ void TextObserver::notify() {
 		cout << board_size - i << ' ';
 		for (int j = 0; j < board_size; ++j) {
 			if (board_array[i][j] == nullptr){
-				if (j % 2 == 1) { cout << '_'; }
+				if ((j + i) % 2 == 1) { cout << '_'; }
 				else { cout << ' '; }
 			}
 			else {

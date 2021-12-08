@@ -33,7 +33,7 @@ class GameError {
 
 class Board : public Subject{
 	private:
-	//std::vector<Move> moves;
+	std::vector<Move> moves;
 	std::map<char, std::string> players;
 	std::vector<std::vector<std::shared_ptr<Piece>>> board;	
 	char turn;
@@ -51,6 +51,7 @@ class Board : public Subject{
 	void setup_color(char color);
 	bool check_setup();
 	void clean_board();
+	void move(Position from, Position to);
 };
 
 #endif

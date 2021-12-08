@@ -9,6 +9,7 @@ class Position {
 	Position(int x, int y);
 	int get_x();
 	int get_y();
+	int distance_squared(Position p);
 };
 
 #endif

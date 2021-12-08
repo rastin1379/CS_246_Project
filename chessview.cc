@@ -17,5 +17,10 @@ void ChessView::run() {
 			cin  >> p1 >> p2;
 			controller.start(p1, p2);
 		}
+		if (command == "move") {
+			string move_commands;
+			getline(cin, move_commands);
+			controller.move(move_commands);
+		}
 	}	
 }
