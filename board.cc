@@ -1,6 +1,5 @@
 #include "board.h"
 #include <cmath>
-#include <iostream>
 
 using namespace std;
 
@@ -76,6 +75,9 @@ map<std::string, int> Board::get_scores()
 
 string Board::analyze_state()
 {
+	if (piece_counts() == 2) {
+		return "s";
+	}
 	bool white_in_check = is_position_check(get_position_piece('K'), 'w');
 	bool black_in_check = is_position_check(get_position_piece('k'), 'b');
 	bool white_in_stalemate = is_stalemate('w');
@@ -154,9 +156,7 @@ bool Board::is_stalemate(char color)
 				{
 					for (int n = 0; n < board_size; ++n)
 					{
-						if (board[i][j]->is_valid_move(this,
-																					 Position(j, i),
-																					 Position(n, m)))
+						if (board[i][j]->is_valid_move(this,Position(j, i), Position(n, m)))
 						{
 							return false;
 						}
@@ -202,8 +202,7 @@ bool Board::is_piece_blockable(Position p)
 	while (current_x != op_king.get_x() ||
 				 current_y != op_king.get_y())
 	{
-		if (is_position_check(Position(current_x, current_y),
-													board[p.get_y()][p.get_x()]->get_color()))
+		if (is_position_check(Position(current_x, current_y), board[p.get_y()][p.get_x()]->get_color()))
 		{
 			return true;
 		}
@@ -310,9 +309,7 @@ void Board::move(Position from, Position to)
 	{
 		if (board[from.get_y()][from.get_x()]->is_valid_move(this, from, to))
 		{
-			moves.emplace_back(board[from.get_y()][from.get_x()],
-												 board[to.get_y()][to.get_x()],
-												 from, to, false, false, false);
+			moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, false, false, false);
 			board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
 			board[from.get_y()][from.get_x()]->add_move_counts();
 			board[from.get_y()][from.get_x()] = nullptr;
@@ -355,9 +352,7 @@ void Board::promote(Position from, Position to, char promoted)
 	{
 		throw GameError{"promoted and piece color do not match"};
 	}
-	moves.emplace_back(board[from.get_y()][from.get_x()],
-										 board[to.get_y()][to.get_x()],
-										 from, to, false, false, true);
+	moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, false, false, true);
 	board[from.get_y()][from.get_x()] = nullptr;
 	if (promoted == 'r' || promoted == 'R')
 	{
@@ -382,33 +377,39 @@ void Board::handle_king_move(Position from, Position to)
 {
 	if (board[from.get_y()][from.get_x()]->is_valid_move(this, from, to))
 	{
-		moves.emplace_back(board[from.get_y()][from.get_x()],
-											 board[to.get_y()][to.get_x()],
-											 from, to, false, false, false);
+		moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, false, false, false);
 		board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
 		board[from.get_y()][from.get_x()]->add_move_counts();
 		board[from.get_y()][from.get_x()] = nullptr;
 	}
 	// castle check
-	else if (from.get_x() == 4 && from.get_y() == 7 && board[7][4]->get_move_counts() == 0 && board[7][5] == nullptr && board[7][6] == nullptr && board[7][7] != nullptr && to.get_x() == 6 && to.get_y() == 7 && board[7][7]->get_type() == 'R' &&
+	else if (from.get_x() == 4 && from.get_y() == 7 && board[7][4]->get_move_counts() == 0 && 
+			board[7][5] == nullptr && board[7][6] == nullptr && 
+			board[7][7] != nullptr && to.get_x() == 6 && to.get_y() == 7 && board[7][7]->get_type() == 'R' &&
 					 board[7][7]->get_move_counts() == 0 && !is_position_check(Position(4, 7), 'w') &&
 					 !is_position_check(Position(5, 7), 'w') && !is_position_check(Position(6, 7), 'w'))
 	{
 		add_castle_move(Position(4, 7), Position(6, 7), Position(7, 7), Position(5, 7));
 	}
-	else if (from.get_x() == 4 && from.get_y() == 7 && board[7][4]->get_move_counts() == 0 && board[7][3] == nullptr && board[7][2] == nullptr && board[7][0] != nullptr && to.get_x() == 2 && to.get_y() == 7 && board[7][0]->get_type() == 'R' &&
+	else if (from.get_x() == 4 && from.get_y() == 7 && board[7][4]->get_move_counts() == 0 && 
+			board[7][3] == nullptr && board[7][2] == nullptr && board[7][0] != nullptr && 
+			to.get_x() == 2 && to.get_y() == 7 && board[7][0]->get_type() == 'R' &&
 					 board[7][0]->get_move_counts() == 0 && !is_position_check(Position(4, 7), 'w') &&
 					 !is_position_check(Position(3, 7), 'w') && !is_position_check(Position(2, 7), 'w'))
 	{
 		add_castle_move(Position(4, 7), Position(2, 7), Position(0, 7), Position(3, 7));
 	}
-	else if (from.get_x() == 4 && from.get_y() == 0 && board[0][4]->get_move_counts() == 0 && board[0][5] == nullptr && board[0][6] == nullptr && board[0][7] != nullptr && to.get_x() == 6 && to.get_y() == 0 && board[0][7]->get_type() == 'r' &&
+	else if (from.get_x() == 4 && from.get_y() == 0 && board[0][4]->get_move_counts() == 0 && 
+			board[0][5] == nullptr && board[0][6] == nullptr && board[0][7] != nullptr && 
+			to.get_x() == 6 && to.get_y() == 0 && board[0][7]->get_type() == 'r' &&
 					 board[0][7]->get_move_counts() == 0 && !is_position_check(Position(4, 0), 'b') &&
 					 !is_position_check(Position(5, 0), 'b') && !is_position_check(Position(6, 0), 'b'))
 	{
 		add_castle_move(Position(4, 0), Position(6, 0), Position(7, 0), Position(5, 0));
 	}
-	else if (from.get_x() == 4 && from.get_y() == 0 && board[0][4]->get_move_counts() == 0 && board[0][3] == nullptr && board[0][2] == nullptr && board[0][0] != nullptr && to.get_x() == 2 && to.get_y() == 0 && board[0][0]->get_type() == 'r' &&
+	else if (from.get_x() == 4 && from.get_y() == 0 && board[0][4]->get_move_counts() == 0 && 
+			board[0][3] == nullptr && board[0][2] == nullptr && board[0][0] != nullptr && 
+			to.get_x() == 2 && to.get_y() == 0 && board[0][0]->get_type() == 'r' &&
 					 board[0][0]->get_move_counts() == 0 && !is_position_check(Position(4, 0), 'b') &&
 					 !is_position_check(Position(3, 0), 'b') && !is_position_check(Position(2, 0), 'b'))
 	{
@@ -422,9 +423,7 @@ void Board::handle_king_move(Position from, Position to)
 
 void Board::add_castle_move(Position king_from, Position king_to, Position rook_from, Position rook_to)
 {
-	moves.emplace_back(board[king_from.get_y()][king_from.get_x()],
-										 nullptr,
-										 king_from, king_to, false, true, false);
+	moves.emplace_back(board[king_from.get_y()][king_from.get_x()], nullptr, king_from, king_to, false, true, false);
 	board[king_to.get_y()][king_to.get_x()] = board[king_from.get_y()][king_from.get_x()];
 	board[king_to.get_y()][king_to.get_x()]->add_move_counts();
 	board[rook_to.get_y()][rook_to.get_x()] = board[rook_from.get_y()][rook_from.get_x()];
@@ -466,9 +465,7 @@ void Board::handle_pawn_move(Position from, Position to)
 {
 	if (board[from.get_y()][from.get_x()]->is_valid_move(this, from, to))
 	{
-		moves.emplace_back(board[from.get_y()][from.get_x()],
-											 board[to.get_y()][to.get_x()],
-											 from, to, false, false, false);
+		moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, false, false, false);
 		board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
 		board[from.get_y()][from.get_x()]->add_move_counts();
 		board[from.get_y()][from.get_x()] = nullptr;
@@ -488,9 +485,7 @@ void Board::handle_pawn_move(Position from, Position to)
 				to.get_x() == last_move.get_to().get_x() && (to.get_y() == last_move.get_to().get_y() + step) &&
 				(abs(to.get_x() - from.get_x()) == 1) && (to.get_y() - from.get_y() == step))
 		{
-			moves.emplace_back(board[from.get_y()][from.get_x()],
-												 board[to.get_y()][to.get_x()],
-												 from, to, true, false, false);
+			moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, true, false, false);
 			board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
 			board[from.get_y()][from.get_x()]->add_move_counts();
 			board[from.get_y()][from.get_x()] = nullptr;
@@ -520,14 +515,21 @@ void Board::handle_pawn_move(Position from, Position to)
 
 void Board::make_board_empty()
 {
+	bool making_board = true;
+	if (board.size() != 0) {
+		making_board = false;
+	}	
 	for (int i = 0; i < board_size; i++)
 	{
 		vector<shared_ptr<Piece>> row;
 		for (int j = 0; j < board_size; ++j)
 		{
 			row.push_back(nullptr);
+			if (!making_board) { board[i][j] = nullptr; };
 		}
-		board.push_back(row);
+		if (making_board) {
+			board.push_back(row);
+		}
 	}
 }
 
@@ -552,6 +554,7 @@ void Board::start()
 		setup_standard();
 		turn = 'w';
 	}
+	if (turn != 'w' && turn != 'b') { turn = 'w'; }
 	game_mode = "game";
 	notifyObservers("n");
 }
@@ -571,9 +574,41 @@ void Board::setup_color(char color)
 	turn = color;
 }
 
-bool Board::check_setup()
-{
-	return true;
+void Board::setup_done() {
+	Position white_king = get_position_piece('K');
+	Position black_king = get_position_piece('k');
+	if (white_king.get_x() == -1 || white_king.get_y() == -1) {
+		throw GameError{"white and black kings must be in the game"};
+	}
+	if (is_position_check(white_king, 'w') || is_position_check(black_king, 'b')) {
+		throw GameError{"kings cannot be in check"};
+	}
+	for (int i = 0; i < board_size; ++i) {
+		if ((board[0][i] != nullptr && board[0][i]->get_piece_type() == 'p') ||
+				(board[7][i] != nullptr && board[7][i]->get_piece_type() == 'p')){
+			throw GameError{"pawns cannot be in the first or last rows"};
+		}
+	}
+	int white_count = 0;
+	int black_count = 0;
+        for (int i = 0; i < board_size; ++i)
+        {
+                for (int j = 0; j < board_size; ++j)
+                {
+                        if (board[i][j] != nullptr && board[i][j]->get_type() == 'k')
+                        {
+                                black_count ++;
+                        }
+			if (board[i][j] != nullptr && board[i][j]->get_type() == 'K')
+			{
+				white_count ++;
+			}
+                }
+        }
+	if (black_count != 1 || white_count != 1) {
+		throw GameError{"there should be exactly one white and black king in the game"};
+	}
+	game_mode = "pre_game";
 }
 
 void Board::setup_standard()
@@ -639,4 +674,39 @@ Move Board::get_last_move()
 int Board::get_move_size()
 {
 	return moves.size();
+}
+
+void Board::setup() {
+	game_mode = "setup";
+}
+
+int Board::piece_counts() {
+	int count = 0;
+	for (int i = 0; i < board_size; ++i)
+        {
+                for (int j = 0; j < board_size; ++j)
+                {
+                        if (board[i][j] != nullptr)
+                        {
+                                count ++;
+                        }
+                }
+        }
+	return count;
+}
+
+void Board::resign() {
+	string result;
+	if (turn == 'w') {
+		result = "rb";
+		scores["Black"] += 1;
+	}
+	else {
+		result = "rw";
+		scores["White"] += 1;
+	}
+	char op_turn = (turn == 'w' ? 'b' : 'w');
+	scores[players[op_turn]] += 1;
+	notifyObservers(result);
+	clean_board();
 }

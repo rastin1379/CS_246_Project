@@ -17,7 +17,8 @@ bool Pawn::is_valid_move(Board * board_obj,
 	if (to.get_x() == from.get_x() && to.get_y() == from.get_y() + step * 2
                         && board[to.get_y()][to.get_x()] == nullptr
 			&& board[to.get_y() - step][to.get_x()] == nullptr
-			&& get_move_counts() == 0) {
+			&& get_move_counts() == 0
+			&& ((step == -1 && from.get_y() == 6) || (step == 1 && from.get_y() == 1))) {
                 return true;
         }
 	if (abs(to.get_x() - from.get_x()) == 1 && to.get_y() - from.get_y() == step &&

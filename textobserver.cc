@@ -53,6 +53,12 @@ void TextObserver::notify(string result) {
 	else if (result == "s") {
 		cout << "Stalemate!" << endl;
 	}
+	else if (result == "rw") {
+		cout << "White wins!" << endl;
+	}
+	else if (result == "rb") {
+		cout << "Black wins!" << endl;
+	}
 	if (result == "s" || result == "ew" || result == "eb") {
 		map<string, int> scores = board->get_scores();
 		cout << endl << "Final Score:" << endl;

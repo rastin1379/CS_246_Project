@@ -43,10 +43,56 @@ void ChessView::run()
                         }
 		}
 		if (command == "resign") {
-			// TO DO: find which player concedes defeat
-			// std::cout << "the #COLOUR player concedes defeat. #OPPONENT_COLOUR wins"
-			return;
+			try {
+				controller.resign();
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
 		}
-		if (command == "setup") {}
+		if (command == "setup") {
+			try {
+				controller.setup();
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
+		if (command == "+") {
+			try {
+				char piece;
+				string position;
+				cin >> piece >> position;
+				controller.setup_add(piece, position);
+				board->notifyObservers("n");
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
+		if (command == "-") {
+			try {
+                                string position;
+				cin >> position;
+                                controller.setup_remove(position);
+				board->notifyObservers("n");
+                        } catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
+		if (command == "=") {
+			try {
+				char color;
+				cin >> color;
+				controller.setup_color(color);
+				board->notifyObservers("n");
+			} catch(GameError ge) { 
+				cout << "game error: " << ge.get_message() << endl;
+			}
+		}
+		if (command == "done") {
+			try {
+				controller.setup_done();
+			} catch(GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
 	}
 }

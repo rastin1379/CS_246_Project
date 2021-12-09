@@ -15,6 +15,12 @@ class ChessController {
 	void start(std::string player1, std::string player2);
 	void move(std::string commands);
 	void undo();
+	void setup();
+	void setup_add(char piece, std::string position);
+	void setup_remove(std::string position);
+	void setup_color(char color);
+	void setup_done();
+	void resign();
 };
 
 #endif

@@ -63,7 +63,7 @@ public:
 	void setup_add(std::shared_ptr<Piece> piece, Position p);
 	void setup_remove(Position p);
 	void setup_color(char color);
-	bool check_setup();
+	void setup_done();
 	void move(Position from, Position to);
 	bool is_position_check(Position p, char color);
 	void move_promotion(Position from, Position to, char promoted);
@@ -76,6 +76,9 @@ public:
 	std::string get_game_mode();
 	Move get_last_move();
 	int get_move_size();
+	void setup();
+	int piece_counts();
+	void resign();
 };
 
 #endif
