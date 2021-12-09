@@ -72,6 +72,7 @@ class Board : public Subject{
 	void clean_board();
 	void set_game_mode(std::string mode);
 	std::string get_game_mode();
+	Move get_last_move();
 };
 
 #endif

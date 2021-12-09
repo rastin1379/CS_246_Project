@@ -486,3 +486,12 @@ void Board::change_turn() {
 		turn = 'w';
 	}
 }
+
+Move Board::get_last_move() {
+	int size = moves.size();
+	if (size == 0) {
+		return Move(nullptr, nullptr, Position(-1, -1),
+				Position(-1, -1), false, false, false);
+	}
+	return moves[size - 1];
+}
