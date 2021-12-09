@@ -42,11 +42,11 @@ void ChessView::run()
                                 cout << "game error: " << ge.get_message() << endl;
                         }
 		}
-		if (command == "resign")
-		{
+		if (command == "resign") {
 			// TO DO: find which player concedes defeat
 			// std::cout << "the #COLOUR player concedes defeat. #OPPONENT_COLOUR wins"
 			return;
 		}
+		if (command == "setup") {}
 	}
 }

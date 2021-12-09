@@ -488,10 +488,9 @@ void Board::change_turn() {
 }
 
 Move Board::get_last_move() {
-	int size = moves.size();
-	if (size == 0) {
-		return Move(nullptr, nullptr, Position(-1, -1),
-				Position(-1, -1), false, false, false);
-	}
-	return moves[size - 1];
+	return moves[moves.size() - 1];
+}
+
+int Board::get_move_count() {
+	return moves.size();
 }
