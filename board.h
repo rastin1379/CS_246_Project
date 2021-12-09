@@ -22,21 +22,23 @@
 
 const int board_size = 8;
 
-class GameError {
-	private:
+class GameError
+{
+private:
 	std::string message;
 
-	public:
-	GameError(std::string message): message{ message } {}
+public:
+	GameError(std::string message) : message{message} {}
 	std::string get_message() { return message; }
 };
 
-class Board : public Subject{
-	private:
+class Board : public Subject
+{
+private:
 	std::vector<Move> moves;
 	std::map<char, std::string> players;
 	std::map<std::string, int> scores;
-	std::vector<std::vector<std::shared_ptr<Piece>>> board;	
+	std::vector<std::vector<std::shared_ptr<Piece>>> board;
 	char turn;
 	void setup_standard();
 	bool is_board_empty();
@@ -53,7 +55,7 @@ class Board : public Subject{
 	bool can_piece_move(Position p);
 	std::string game_mode;
 
-	public:	
+public:
 	Board();
 	std::vector<std::vector<std::shared_ptr<Piece>>> get_board();
 	void add_player(std::string player, char color);
@@ -73,7 +75,7 @@ class Board : public Subject{
 	void set_game_mode(std::string mode);
 	std::string get_game_mode();
 	Move get_last_move();
-	int get_move_count();
+	int get_move_size();
 };
 
 #endif
