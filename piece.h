@@ -17,6 +17,7 @@ class Piece {
 	char get_type();
 	int get_move_counts();
 	void add_move_counts();	
+	void sub_move_counts();
 	char get_piece_type();
 	char get_color();
 	virtual bool is_valid_move(Board *board_obj, Position from,Position to) = 0;

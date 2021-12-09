@@ -16,16 +16,31 @@ void ChessView::run()
 	{
 		if (command == "game")
 		{
-			string p1;
-			string p2;
-			cin >> p1 >> p2;
-			controller.start(p1, p2);
+			try {
+				string p1;
+				string p2;
+				cin >> p1 >> p2;
+				controller.start(p1, p2);
+			} catch (GameError ge) {
+                		cout << "game error: " << ge.get_message() << endl;
+        		}
 		}
 		if (command == "move")
 		{
-			string move_commands;
-			getline(cin, move_commands);
-			controller.move(move_commands);
+			try {
+				string move_commands;
+				getline(cin, move_commands);
+				controller.move(move_commands);
+			} catch (GameError ge) {
+                		cout << "game error: " << ge.get_message() << endl;
+        		}	
+		}
+		if (command == "undo") {
+			try {
+				controller.undo();
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
 		}
 		if (command == "resign")
 		{

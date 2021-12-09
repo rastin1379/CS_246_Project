@@ -14,6 +14,7 @@ class ChessController {
 	ChessController(std::shared_ptr<Board> board);
 	void start(std::string player1, std::string player2);
 	void move(std::string commands);
+	void undo();
 };
 
 #endif

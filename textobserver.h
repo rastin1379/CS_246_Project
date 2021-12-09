@@ -11,7 +11,7 @@ class TextObserver : public Observer
 
 	public:
   	TextObserver(std::shared_ptr<Board> board);
-  	void notify() override;
+  	void notify(std::string result) override;
   	~TextObserver();
 };
 

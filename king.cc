@@ -12,7 +12,8 @@ bool King::is_valid_move(Board * board_obj,
 		board[to.get_y()][to.get_x()]->get_color() == get_color()) {
 		return false;
 	}
-	if (from.distance_squared(to) > 2) {
+	if (from.distance_squared(to) > 2 ||
+			board_obj->is_position_check(to, board[from.get_y()][from.get_x()]->get_color())) {
 		return false;
 	}	
 	return true;

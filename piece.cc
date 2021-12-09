@@ -20,3 +20,7 @@ int Piece::get_move_counts() {
 void Piece::add_move_counts() {
 	move_counts += 1;
 }
+
+void Piece::sub_move_counts() {
+	move_counts -= 1;
+}

@@ -8,16 +8,18 @@ using namespace std;
 ChessController::ChessController(std::shared_ptr<Board> board): board{board} {};
 
 void ChessController::start(string player1, string player2) {
-	try {
-		board->add_player(player1, 'w');
-        	board->add_player(player2, 'b');
-		board->start();	
-	} catch (GameError ge) {
-		cout << "game error: " << ge.get_message() << endl; 
-	} 
+	if (board->get_game_mode() != "pre_game") {
+		throw GameError{"current game mode is " + board->get_game_mode()};
+	}
+	board->add_player(player1, 'w');
+       	board->add_player(player2, 'b');
+	board->start();	
 }
 
 void ChessController::move(std::string commands) {
+	if (board->get_game_mode() != "game") {
+                throw GameError{"current game mode is " + board->get_game_mode()};
+        }
 	if (commands == "") {
 		// computer move
 	}
@@ -29,25 +31,21 @@ void ChessController::move(std::string commands) {
     			size++;
 		}
 		if (size == 3) {
-			try {
-				Position from = make_position(move_commands[0]);
-                                Position to = make_position(move_commands[1]);
-				char promoted = move_commands[2][0];
-				board->move_promotion(from, to, promoted);
-			} catch (GameError ge) {
-                                cout << "game error: " << ge.get_message() << endl;
-                        }
+			Position from = make_position(move_commands[0]);
+                        Position to = make_position(move_commands[1]);
+			char promoted = move_commands[2][0];
+			board->move_promotion(from, to, promoted);
 		}	
 		else {
-			try {
-				Position from = make_position(move_commands[0]);
-				Position to = make_position(move_commands[1]);
-				board->move(from, to);
-			} catch (GameError ge) {
-		                cout << "game error: " << ge.get_message() << endl;
-       			}
+			Position from = make_position(move_commands[0]);
+			Position to = make_position(move_commands[1]);
+			board->move(from, to);
 		}
 	}
+}
+
+void ChessController::undo() {
+	board->full_undo();
 }
 
 Position ChessController::make_position(string point) {

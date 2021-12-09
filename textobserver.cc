@@ -6,15 +6,21 @@ using namespace std;
 
 TextObserver::TextObserver(shared_ptr<Board> board) : board{board}
 {
-  board->attach(this);
+	board->attach(this);
 }
 
 TextObserver::~TextObserver()
 {
-  board->detach(this);
+	map<string, int> scores = board->get_scores();
+        cout << endl << "Final Score:" << endl;
+        map<string, int>::iterator it;
+        for (it = scores.begin(); it != scores.end(); it++) {
+                cout << it->first << ": " << it->second << endl;
+	}
+	board->detach(this);
 }
 
-void TextObserver::notify() {
+void TextObserver::notify(string result) {
 	std::vector<std::vector<std::shared_ptr<Piece>>> board_array 
 		= board->get_board();
 	for (int i = 0; i < board_size; ++i) {
@@ -31,4 +37,28 @@ void TextObserver::notify() {
 		cout << endl;
 	}	
 	cout << endl << "  abcdefgh" << endl;
+	cout << endl << endl;
+	if (result == "eb") {
+		cout << "Checkmate! Black wins!" << endl;
+	}
+	else if (result == "ew") {
+		cout << "Checkmate! White wins!" << endl;
+	}
+	else if (result == "cw") {
+		cout << "White is in check." << endl;
+	}
+	else if (result == "cb") {
+		cout << "Black is in check." << endl;
+	}
+	else if (result == "s") {
+		cout << "Stalemate!" << endl;
+	}
+	if (result == "s" || result == "ew" || result == "eb") {
+		map<string, int> scores = board->get_scores();
+		cout << endl << "Final Score:" << endl;
+		map<string, int>::iterator it;
+		for (it = scores.begin(); it != scores.end(); it++) {
+			cout << it->first << ": " << it->second << endl;
+		}
+	}
 }

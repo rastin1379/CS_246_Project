@@ -35,6 +35,7 @@ class Board : public Subject{
 	private:
 	std::vector<Move> moves;
 	std::map<char, std::string> players;
+	std::map<std::string, int> scores;
 	std::vector<std::vector<std::shared_ptr<Piece>>> board;	
 	char turn;
 	void setup_standard();
@@ -47,6 +48,10 @@ class Board : public Subject{
 	void promote(Position from, Position to, char promoted);
 	void handle_next_turn();
 	Position get_position_piece(char name);
+	bool is_piece_blockable(Position p);
+	bool is_stalemate(char color);
+	bool can_piece_move(Position p);
+	std::string game_mode;
 
 	public:	
 	Board();
@@ -57,12 +62,16 @@ class Board : public Subject{
 	void setup_remove(Position p);
 	void setup_color(char color);
 	bool check_setup();
-	void clean_board();
 	void move(Position from, Position to);
 	bool is_position_check(Position p, char color);
 	void move_promotion(Position from, Position to, char promoted);
-        string analyze_state();
+	std::string analyze_state();
 	void undo();
+	void full_undo();
+	std::map<std::string, int> get_scores();
+	void clean_board();
+	void set_game_mode(std::string mode);
+	std::string get_game_mode();
 };
 
 #endif

@@ -15,8 +15,8 @@ void Subject::detach(Observer *o)
   }
 }
 
-void Subject::notifyObservers()
+void Subject::notifyObservers(std::string result)
 {
   for (auto &ob : observers)
-    ob->notify();
+    ob->notify(result);
 }
