@@ -9,13 +9,13 @@ void ChessView::run()
 	string command;
 	auto board = make_shared<Board>();
 	vector<shared_ptr<TextObserver>> observers;
+	vector<shared_ptr<GraphicsObserver>> graphic_observers;
 
 	observers.push_back(make_shared<TextObserver>(board));
+	graphic_observers.push_back(make_shared<GraphicsObserver>(board));
 	ChessController controller = ChessController(board);
-	while (cin >> command)
-	{
-		if (command == "game")
-		{
+	while (cin >> command){
+		if (command == "game"){
 			try {
 				string p1;
 				string p2;
@@ -25,8 +25,7 @@ void ChessView::run()
                 		cout << "game error: " << ge.get_message() << endl;
         		}
 		}
-		if (command == "move")
-		{
+		if (command == "move"){
 			try {
 				string move_commands;
 				getline(cin, move_commands);

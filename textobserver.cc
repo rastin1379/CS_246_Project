@@ -9,8 +9,7 @@ TextObserver::TextObserver(shared_ptr<Board> board) : board{board}
 	board->attach(this);
 }
 
-TextObserver::~TextObserver()
-{
+TextObserver::~TextObserver(){
 	map<string, int> scores = board->get_scores();
         cout << endl << "Final Score:" << endl;
         map<string, int>::iterator it;
