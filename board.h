@@ -77,6 +77,7 @@ public:
 	void setup();
 	int piece_counts();
 	void resign();
+	char get_turn();
 };
 
 #endif

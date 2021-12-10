@@ -731,3 +731,7 @@ void Board::resign() {
 	notifyObservers(result);
 	clean_board();
 }
+
+char Board::get_turn() {
+	return turn;
+}
