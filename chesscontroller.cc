@@ -28,7 +28,7 @@ void ChessController::move(std::string commands) {
                 throw GameError{"current game mode is " + board->get_game_mode()};
         }
 	if (commands == "") {
-		// computer move
+		board->computer_move();
 	}
 	else {
 		string move_commands [3];

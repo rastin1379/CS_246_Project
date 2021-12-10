@@ -1,5 +1,12 @@
 #include "board.h"
 #include <cmath>
+#include <string>
+#include "computerplayer.h"
+#include "level1.h"
+#include "level2.h"
+#include "level3.h"
+#include "level4.h"
+
 
 using namespace std;
 
@@ -283,6 +290,11 @@ void Board::undo()
 	}
 }
 
+void Board::computer_move() {
+	vector<Position> positions = (computers[turn])->play(this);
+	move(positions[0], positions[1]);
+}
+
 void Board::move(Position from, Position to)
 {
 	if (board[from.get_y()][from.get_x()] == nullptr)
@@ -541,6 +553,15 @@ vector<vector<shared_ptr<Piece>>> Board::get_board()
 void Board::add_player(string player, char color)
 {
 	players[color] = player;
+	if (player == "computer1") {
+		computers[color] = make_shared<Level1>();
+	} else if (player == "computer2") {
+		computers[color] = make_shared<Level2>();
+	} else if (player == "computer3") {
+		computers[color] = make_shared<Level3>();
+	} else if (player == "computer4") {
+                computers[color] = make_shared<Level4>();
+        } 
 }
 
 void Board::start()

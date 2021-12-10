@@ -15,10 +15,6 @@
 #include "knight.h"
 #include "pawn.h"
 #include "computerplayer.h"
-#include "level1.h"
-#include "level2.h"
-#include "level3.h"
-#include "level4.h"
 
 const int board_size = 8;
 
@@ -35,6 +31,7 @@ public:
 class Board : public Subject
 {
 private:
+	std::map<char, std::shared_ptr<ComputerPlayer>> computers;
 	std::vector<Move> moves;
 	std::map<char, std::string> players;
 	std::map<std::string, int> scores;
@@ -65,6 +62,7 @@ public:
 	void setup_color(char color);
 	void setup_done();
 	void move(Position from, Position to);
+	void computer_move();
 	bool is_position_check(Position p, char color);
 	void move_promotion(Position from, Position to, char promoted);
 	std::string analyze_state();
