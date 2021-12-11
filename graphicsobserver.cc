@@ -1,5 +1,6 @@
 #include <iostream>
 #include "observer.h"
+#include <string>
 #include "window.h"
 #include "graphicsobserver.h"
 
@@ -38,7 +39,6 @@ void GraphicsObserver::notify(string result)
     xw->drawString(55, 20, "p");
     xw->drawString(65, 20, "p");
     xw->drawString(75, 20, "p");
-
 
     for (int i = 2; i < 6; i++)
     {
@@ -84,6 +84,49 @@ void GraphicsObserver::notify(string result)
     xw->drawString(52, 80, "B");
     xw->drawString(62, 80, "N");
     xw->drawString(72, 80, "R");
-  }
+  } else {
 
+  // the x position starts from 0, from left
+  // the y position starts from 0, from top
+
+  Move last_move = board->get_last_move();
+  Position from = last_move.get_from();
+  Position to = last_move.get_to();
+
+  // 1. Clear the "to" position
+  // 2. clear the "from" position
+
+  int from_x = from.get_x();
+  int from_y = from.get_y();
+
+  if((from_x % 2 == 0) && (from_y % 2 == 0)){
+  //if x % 2 == 0 and y % 2 == 0
+    // prints white
+    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 0);
+
+  } else if ((from_x % 2 == 0) && (from_y % 2 != 0)){
+  // if x % 2 == 0 and y % 2 != 0
+    // prints black
+    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 1);
+
+  } else if ((from_x % 2 != 0) && (from_y % 2 == 0)){
+  // if x % 2 != 0 y % 2 == 0
+    // prints black
+    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 1);
+
+  } else {
+  // else 
+    // prints white
+    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 0);
+  }
+  
+  // 3. get the piece (move.get_piece()) 
+
+  // 4. add the piece to the "to" position
+  std::string p;
+  p += last_move.get_piece()->get_type();
+
+  xw->fillRectangle(to.get_x() * 10, to.get_y() * 10, 10, 10, 0);
+  xw->drawString(to.get_x() * 10 + 3, to.get_y() * 10 + 9, p);
+  }
 }
