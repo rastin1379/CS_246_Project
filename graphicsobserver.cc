@@ -22,68 +22,68 @@ void GraphicsObserver::notify(string result)
   if (board->get_move_size() == 0)
   {
     // render the board from scratch
-    xw->drawString(5, 10, "r");
-    xw->drawString(15, 10, "n");
-    xw->drawString(25, 10, "b");
-    xw->drawString(35, 10, "q");
-    xw->drawString(45, 10, "k");
-    xw->drawString(55, 10, "b");
-    xw->drawString(65, 10, "n");
-    xw->drawString(75, 10, "r");
+    xw->drawString(25, 25, "r");
+    xw->drawString(75, 25, "n");
+    xw->drawString(125, 25, "b");
+    xw->drawString(175, 25, "q");
+    xw->drawString(225, 25, "k");
+    xw->drawString(275, 25, "b");
+    xw->drawString(325, 25, "n");
+    xw->drawString(375, 25, "r");
 
-    xw->drawString(5, 20, "p");
-    xw->drawString(15, 20, "p");
-    xw->drawString(25, 20, "p");
-    xw->drawString(35, 20, "p");
-    xw->drawString(45, 20, "p");
-    xw->drawString(55, 20, "p");
-    xw->drawString(65, 20, "p");
-    xw->drawString(75, 20, "p");
+    xw->drawString(25, 75, "p");
+    xw->drawString(75, 75, "p");
+    xw->drawString(125, 75, "p");
+    xw->drawString(175, 75, "p");
+    xw->drawString(225, 75, "p");
+    xw->drawString(275, 75, "p");
+    xw->drawString(325, 75, "p");
+    xw->drawString(375, 75, "p");
 
-    for (int i = 2; i < 6; i++)
+    for (int i = 100; i < 300; i += 50)
     {
-      for (int j = 0; j <= 7; j++)
+      for (int j = 0; j <= 350; j += 50)
       {
-        if ((i % 2 == 0) && (j % 2 == 0))
+        if ((i % 100 == 0) && (j % 100 == 0))
         {
           //prints white
-          xw->fillRectangle(j * 10 + 5, i * 10, 10, 10, 0);
+          xw->fillRectangle(j, i, 50, 50, 8);
         }
-        else if ((i % 2 == 0) && (j % 2 != 0))
+        else if ((i % 100 == 0) && (j % 100 != 0))
         {
           // prints black
-          xw->fillRectangle(j * 10, i * 10, 10, 10, 1);
+          xw->fillRectangle(j, i, 50, 50, 9);
         }
-        else if ((i % 2 != 0) && (j % 2 == 0))
+        else if ((i % 100 != 0) && (j % 100 == 0))
         {
           // prints black
-          xw->fillRectangle(j * 10, i * 10, 10, 10, 1);
+          xw->fillRectangle(j, i, 50, 50, 9);
         }
         else
         {
           // prints white
-          xw->fillRectangle(j * 10, i * 10, 10, 10, 0);
+          xw->fillRectangle(j, i, 50, 50, 8);
         }
       }
     }
 
-    xw->drawString(2, 70, "P");
-    xw->drawString(12, 70, "P");
-    xw->drawString(22, 70, "P");
-    xw->drawString(32, 70, "P");
-    xw->drawString(42, 70, "P");
-    xw->drawString(52, 70, "P");
-    xw->drawString(62, 70, "P");
-    xw->drawString(72, 70, "P");
+    xw->drawString(25, 325, "P");
+    xw->drawString(75, 325, "P");
+    xw->drawString(125, 325, "P");
+    xw->drawString(175, 325, "P");
+    xw->drawString(225, 325, "P");
+    xw->drawString(275, 325, "P");
+    xw->drawString(325, 325, "P");
+    xw->drawString(375, 325, "P");
 
-    xw->drawString(2, 80, "R");
-    xw->drawString(12, 80, "N");
-    xw->drawString(22, 80, "B");
-    xw->drawString(32, 80, "Q");
-    xw->drawString(42, 80, "K");
-    xw->drawString(52, 80, "B");
-    xw->drawString(62, 80, "N");
-    xw->drawString(72, 80, "R");
+    xw->drawString(25, 375, "R");
+    xw->drawString(75, 375, "N");
+    xw->drawString(125, 375, "B");
+    xw->drawString(175, 375, "Q");
+    xw->drawString(225, 375, "K");
+    xw->drawString(275, 375, "B");
+    xw->drawString(325, 375, "N");
+    xw->drawString(375, 375, "R");
   } else {
 
   // the x position starts from 0, from left
@@ -102,22 +102,22 @@ void GraphicsObserver::notify(string result)
   if((from_x % 2 == 0) && (from_y % 2 == 0)){
   //if x % 2 == 0 and y % 2 == 0
     // prints white
-    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 0);
+    xw->fillRectangle(from_x * 50, from_y * 50, 50, 50, 8);
 
   } else if ((from_x % 2 == 0) && (from_y % 2 != 0)){
   // if x % 2 == 0 and y % 2 != 0
     // prints black
-    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 1);
+    xw->fillRectangle(from_x * 50, from_y * 50, 50, 50, 9);
 
   } else if ((from_x % 2 != 0) && (from_y % 2 == 0)){
   // if x % 2 != 0 y % 2 == 0
     // prints black
-    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 1);
+    xw->fillRectangle(from_x * 50, from_y * 50, 50, 50, 9);
 
   } else {
   // else 
     // prints white
-    xw->fillRectangle(from_x * 10, from_y * 10, 10, 10, 0);
+    xw->fillRectangle(from_x * 50, from_y * 50, 10, 10, 8);
   }
   
   // 3. get the piece (move.get_piece()) 
@@ -126,7 +126,7 @@ void GraphicsObserver::notify(string result)
   std::string p;
   p += last_move.get_piece()->get_type();
 
-  xw->fillRectangle(to.get_x() * 10, to.get_y() * 10, 10, 10, 0);
-  xw->drawString(to.get_x() * 10 + 3, to.get_y() * 10 + 9, p);
+  xw->fillRectangle(to.get_x() * 50, to.get_y() * 50, 50, 50, 0);
+  xw->drawString(to.get_x() * 50 + 25, to.get_y() * 50 + 25, p);
   }
 }
