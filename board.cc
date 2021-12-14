@@ -569,7 +569,7 @@ void Board::setup_color(char color)
 void Board::setup_done() {
 	Position white_king = get_position_piece('K');
 	Position black_king = get_position_piece('k');
-	if (white_king.get_x() == -1 || white_king.get_y() == -1) {
+	if ((white_king.get_x() == -1 || white_king.get_y() == -1) || (black_king.get_x() == -1 || black_king.get_y() == -1)){
 		throw GameError{"white and black kings must be in the game"};
 	}
 	if (is_position_check(white_king, 'w') || is_position_check(black_king, 'b')) {

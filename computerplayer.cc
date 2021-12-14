@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include "board.h"
+#include <iostream>
 #include "position.h"
 #include <random>
 
@@ -24,7 +25,9 @@ vector<vector<Position>> ComputerPlayer::get_legal_moves(Board * board_obj, char
 				for (int m = 0; m < 8; ++m) {
 					for (int n = 0; n < 8; ++n) {
 						if (board[i][j]->is_valid_move(board_obj, Position(j, i), Position(n, m))) {
+							cout << "j i n m " << j << " " << i << " " << n << " " << m << endl;
 							board_obj->move(Position(j, i), Position(n, m), true);
+							cout << "saeed" << endl;
 							Position king_position = board_obj->get_position_piece(king);
 							if (!board_obj->is_position_check(king_position, board_obj->get_turn())) {
 								legal_moves.push_back({Position(j, i), Position(n, m)});
