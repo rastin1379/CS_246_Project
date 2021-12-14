@@ -40,13 +40,11 @@ private:
 	void setup_standard();
 	bool is_board_empty();
 	void make_board_empty();
-	void change_turn();
 	void handle_king_move(Position from, Position to);
 	void handle_pawn_move(Position from, Position to);
 	void add_castle_move(Position king_from, Position king_to, Position rook_from, Position rook_to);
 	void promote(Position from, Position to, char promoted);
 	void handle_next_turn();
-	Position get_position_piece(char name);
 	bool is_piece_blockable(Position p);
 	bool is_stalemate(char color);
 	bool can_piece_move(Position p);
@@ -61,7 +59,7 @@ public:
 	void setup_remove(Position p);
 	void setup_color(char color);
 	void setup_done();
-	void move(Position from, Position to);
+	void move(Position from, Position to, bool is_temp_move);
 	void computer_move();
 	bool is_position_check(Position p, char color);
 	void move_promotion(Position from, Position to, char promoted);
@@ -78,6 +76,8 @@ public:
 	int piece_counts();
 	void resign();
 	char get_turn();
+	void change_turn();
+	Position get_position_piece(char name);
 };
 
 #endif

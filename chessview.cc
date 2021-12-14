@@ -13,7 +13,7 @@ void ChessView::run()
 	vector<shared_ptr<GraphicsObserver>> graphic_observers;
 
 	observers.push_back(make_shared<TextObserver>(board));
-	graphic_observers.push_back(make_shared<GraphicsObserver>(board));
+	//graphic_observers.push_back(make_shared<GraphicsObserver>(board));
 	ChessController controller = ChessController(board);
 	while (cin >> command)
 	{
@@ -57,9 +57,57 @@ void ChessView::run()
 		}
 		if (command == "resign")
 		{
-			// TO DO: find which player concedes defeat
-			// std::cout << "the #COLOUR player concedes defeat. #OPPONENT_COLOUR wins"
-			return;
+			try {
+				controller.resign();
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
 		}
+		if (command == "setup") {
+			try {
+				controller.setup();
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
+		if (command == "+") {
+			try {
+				char piece;
+				string position;
+				cin >> piece >> position;
+				controller.setup_add(piece, position);
+				board->notifyObservers("n");
+			} catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
+		if (command == "-") {
+			try {
+                                string position;
+				cin >> position;
+                                controller.setup_remove(position);
+				board->notifyObservers("n");
+                        } catch (GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
+		if (command == "=") {
+			try {
+				char color;
+				cin >> color;
+				controller.setup_color(color);
+				board->notifyObservers("n");
+			} catch(GameError ge) {
+				cout << "game error: " << ge.get_message() << endl;
+			}
+		}
+		if (command == "done") {
+			try {
+				controller.setup_done();
+			} catch(GameError ge) {
+                                cout << "game error: " << ge.get_message() << endl;
+                        }
+		}
+		if (command == "setup") {}
 	}
 }

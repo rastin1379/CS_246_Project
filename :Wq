@@ -6,7 +6,7 @@
 #include "level2.h"
 #include "level3.h"
 #include "level4.h"
-#include <iostream>
+
 
 using namespace std;
 
@@ -72,7 +72,6 @@ void Board::clean_board()
 	make_board_empty();
 	moves.clear();
 	players.clear();
-	turn = 'w';
 	game_mode = "pre_game";
 }
 
@@ -164,8 +163,7 @@ bool Board::is_stalemate(char color)
 				{
 					for (int n = 0; n < board_size; ++n)
 					{
-						if ((n != j || m != i) 
-								&& board[i][j]->is_valid_move(this,Position(j, i), Position(n, m)))
+						if (board[i][j]->is_valid_move(this,Position(j, i), Position(n, m)))
 						{
 							return false;
 						}
@@ -290,7 +288,6 @@ void Board::undo()
 			board[7][3] = nullptr;
 		}
 	}
-	moves.pop_back();
 }
 
 void Board::computer_move() {
@@ -395,27 +392,49 @@ void Board::promote(Position from, Position to, char promoted)
 
 void Board::handle_king_move(Position from, Position to)
 {
-	if (!board[from.get_y()][from.get_x()]->is_valid_move(this, from, to)) {
-		throw GameError{"invalid king/castle move"};
-	}
-	if (from.distance_squared(to) <= 2) {
+	if (board[from.get_y()][from.get_x()]->is_valid_move(this, from, to))
+	{
 		moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, false, false, false);
 		board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
 		board[from.get_y()][from.get_x()]->add_move_counts();
 		board[from.get_y()][from.get_x()] = nullptr;
 	}
 	// castle check
-	else if (to.get_x() == 6 && to.get_y() == 7) {
+	else if (from.get_x() == 4 && from.get_y() == 7 && board[7][4]->get_move_counts() == 0 && 
+			board[7][5] == nullptr && board[7][6] == nullptr && 
+			board[7][7] != nullptr && to.get_x() == 6 && to.get_y() == 7 && board[7][7]->get_type() == 'R' &&
+					 board[7][7]->get_move_counts() == 0 && !is_position_check(Position(4, 7), 'w') &&
+					 !is_position_check(Position(5, 7), 'w') && !is_position_check(Position(6, 7), 'w'))
+	{
 		add_castle_move(Position(4, 7), Position(6, 7), Position(7, 7), Position(5, 7));
 	}
-	else if (to.get_x() == 2 && to.get_y() == 7) {
+	else if (from.get_x() == 4 && from.get_y() == 7 && board[7][4]->get_move_counts() == 0 && 
+			board[7][3] == nullptr && board[7][2] == nullptr && board[7][0] != nullptr && 
+			to.get_x() == 2 && to.get_y() == 7 && board[7][0]->get_type() == 'R' &&
+					 board[7][0]->get_move_counts() == 0 && !is_position_check(Position(4, 7), 'w') &&
+					 !is_position_check(Position(3, 7), 'w') && !is_position_check(Position(2, 7), 'w'))
+	{
 		add_castle_move(Position(4, 7), Position(2, 7), Position(0, 7), Position(3, 7));
 	}
-	else if (to.get_x() == 6 && to.get_y() == 0) {
+	else if (from.get_x() == 4 && from.get_y() == 0 && board[0][4]->get_move_counts() == 0 && 
+			board[0][5] == nullptr && board[0][6] == nullptr && board[0][7] != nullptr && 
+			to.get_x() == 6 && to.get_y() == 0 && board[0][7]->get_type() == 'r' &&
+					 board[0][7]->get_move_counts() == 0 && !is_position_check(Position(4, 0), 'b') &&
+					 !is_position_check(Position(5, 0), 'b') && !is_position_check(Position(6, 0), 'b'))
+	{
 		add_castle_move(Position(4, 0), Position(6, 0), Position(7, 0), Position(5, 0));
 	}
-	else if (to.get_x() == 2 && to.get_y() == 0) {
+	else if (from.get_x() == 4 && from.get_y() == 0 && board[0][4]->get_move_counts() == 0 && 
+			board[0][3] == nullptr && board[0][2] == nullptr && board[0][0] != nullptr && 
+			to.get_x() == 2 && to.get_y() == 0 && board[0][0]->get_type() == 'r' &&
+					 board[0][0]->get_move_counts() == 0 && !is_position_check(Position(4, 0), 'b') &&
+					 !is_position_check(Position(3, 0), 'b') && !is_position_check(Position(2, 0), 'b'))
+	{
 		add_castle_move(Position(4, 0), Position(2, 0), Position(0, 0), Position(3, 0));
+	}
+	else
+	{
+		throw GameError{"invalid king/castle move"};
 	}
 }
 
@@ -461,24 +480,39 @@ bool Board::is_position_check(Position p, char color)
 
 void Board::handle_pawn_move(Position from, Position to)
 {
-	if (!(board[from.get_y()][from.get_x()]->is_valid_move(this, from, to))) {
-		throw GameError{"invalid move"};
-	}
-	if (to.get_x() != from.get_x() && board[to.get_y()][to.get_x()] == nullptr) {
-		Move last_move = get_last_move();
-		moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, true, false, false);
+	if (board[from.get_y()][from.get_x()]->is_valid_move(this, from, to))
+	{
+		moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, false, false, false);
 		board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
 		board[from.get_y()][from.get_x()]->add_move_counts();
 		board[from.get_y()][from.get_x()] = nullptr;
-		board[last_move.get_to().get_y()][last_move.get_to().get_x()] = nullptr;
 	}
-	else {
-		moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, false, false, false);
-                board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
-                board[from.get_y()][from.get_x()]->add_move_counts();
-                board[from.get_y()][from.get_x()] = nullptr;
+	else
+	{
+		//  en passant check
+		if (moves.size() == 0)
+		{
+			throw GameError{"invalid move"};
+		}
+		Move last_move = moves.back();
+		int step = (board[from.get_y()][from.get_x()]->get_color() == 'w' ? -1 : 1);
+		if (last_move.get_piece()->get_piece_type() == 'p' &&
+				last_move.get_from().distance_squared(last_move.get_to()) == 4 &&
+				last_move.get_piece()->get_color() != board[from.get_y()][from.get_x()]->get_color() &&
+				to.get_x() == last_move.get_to().get_x() && (to.get_y() == last_move.get_to().get_y() + step) &&
+				(abs(to.get_x() - from.get_x()) == 1) && (to.get_y() - from.get_y() == step))
+		{
+			moves.emplace_back(board[from.get_y()][from.get_x()], board[to.get_y()][to.get_x()], from, to, true, false, false);
+			board[to.get_y()][to.get_x()] = board[from.get_y()][from.get_x()];
+			board[from.get_y()][from.get_x()]->add_move_counts();
+			board[from.get_y()][from.get_x()] = nullptr;
+			board[last_move.get_to().get_y()][last_move.get_to().get_x()] = nullptr;
+		}
+		else
+		{
+			throw GameError{"invalid move"};
+		}
 	}
-	// pawn promotion
 	if ((board[to.get_y()][to.get_x()]->get_color() == 'w' && to.get_y() == 0) ||
 			(board[to.get_y()][to.get_x()]->get_color() == 'b' && to.get_y() == 7))
 	{

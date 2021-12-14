@@ -26,5 +26,17 @@ bool Pawn::is_valid_move(Board * board_obj,
 			board[to.get_y()][to.get_x()]->get_color() != get_color()) {
 		return true;
 	}
+	// en passant
+	if (board_obj->get_move_size() == 0) {
+		return false;
+	}
+	Move last_move = board_obj->get_last_move();
+        if (last_move.get_piece()->get_piece_type() == 'p' &&
+                        last_move.get_from().distance_squared(last_move.get_to()) == 4 &&
+                        last_move.get_piece()->get_color() != board[from.get_y()][from.get_x()]->get_color() &&
+                        to.get_x() == last_move.get_to().get_x() && (to.get_y() == last_move.get_to().get_y() + step) &&
+                        (abs(to.get_x() - from.get_x()) == 1) && (to.get_y() - from.get_y() == step)) {
+        	return true;
+	}
 	return false;
 }

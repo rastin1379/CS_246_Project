@@ -46,7 +46,7 @@ void ChessController::move(std::string commands) {
 		else {
 			Position from = make_position(move_commands[0]);
 			Position to = make_position(move_commands[1]);
-			board->move(from, to);
+			board->move(from, to, false);
 		}
 	}
 }
