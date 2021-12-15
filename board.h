@@ -15,6 +15,7 @@
 #include "knight.h"
 #include "pawn.h"
 #include "computerplayer.h"
+#include <string>
 
 const int board_size = 8;
 
@@ -44,7 +45,7 @@ private:
 	void handle_pawn_move(Position from, Position to);
 	void add_castle_move(Position king_from, Position king_to, Position rook_from, Position rook_to);
 	void promote(Position from, Position to, char promoted);
-	void handle_next_turn();
+	void handle_next_turn(std::string message = "");
 	bool is_piece_blockable(Position p);
 	bool is_stalemate(char color);
 	bool can_piece_move(Position p);

@@ -37,28 +37,29 @@ void TextObserver::notify(string result) {
 	}	
 	cout << endl << "  abcdefgh" << endl;
 	cout << endl << endl;
-	if (result == "eb") {
+	if (result == "eb" || result == "ueb") {
 		cout << "Checkmate! Black wins!" << endl;
 	}
-	else if (result == "ew") {
+	else if (result == "ew" || result == "uew") {
 		cout << "Checkmate! White wins!" << endl;
 	}
-	else if (result == "cw") {
+	else if (result == "cw" || result == "ucw") {
 		cout << "White is in check." << endl;
 	}
-	else if (result == "cb") {
+	else if (result == "cb" || result == "ucb") {
 		cout << "Black is in check." << endl;
 	}
-	else if (result == "s") {
+	else if (result == "s" || result == "us") {
 		cout << "Stalemate!" << endl;
 	}
-	else if (result == "rw") {
+	else if (result == "rw" || result == "urw") {
 		cout << "White wins!" << endl;
 	}
-	else if (result == "rb") {
+	else if (result == "rb" || result == "urb") {
 		cout << "Black wins!" << endl;
 	}
-	if (result == "s" || result == "ew" || result == "eb") {
+	if (result == "s" || result == "ew" || result == "eb" || 
+			result == "us" || result == "uew" || result == "ueb") {
 		map<string, int> scores = board->get_scores();
 		cout << endl << "Final Score:" << endl;
 		map<string, int>::iterator it;

@@ -32,7 +32,7 @@ string Board::get_game_mode()
 	return game_mode;
 }
 
-void Board::handle_next_turn()
+void Board::handle_next_turn(string message)
 {
 	string result = analyze_state();
 	bool game_ended = false;
@@ -64,7 +64,12 @@ void Board::handle_next_turn()
 	{
 		change_turn();
 	}
-	notifyObservers(result);
+	if (message == "") {
+		notifyObservers(result);
+	}
+	else {
+		notifyObservers(message + result);
+	}
 	if (game_ended)
 	{
 		clean_board();
@@ -244,7 +249,7 @@ Position Board::get_position_piece(char name)
 void Board::full_undo()
 {
 	undo();
-	handle_next_turn();
+	handle_next_turn("u");
 }
 
 void Board::undo()
