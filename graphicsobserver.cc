@@ -19,18 +19,19 @@ GraphicsObserver::~GraphicsObserver()
 
 void GraphicsObserver::notify(string result)
 {
-  if (is_red){
-    xw->fillRectangle(430, 430, 50, 50, 1);
-    is_red = false;
-  } else {
-    xw->fillRectangle(430, 430, 50, 50, 2);
-    is_red = true;
-  }
   std::vector<std::vector<std::shared_ptr<Piece>>> board_array = board->get_board();
 
   if(board->get_game_mode() == "setup" || board->get_move_size() == 0 || result[0] == 'u'){
 	  for (int i = 0; i < 8; ++i) {
 		  for (int j = 0; j < 8; ++j) {
+        if (is_red){
+          xw->fillRectangle(430, 430, 50, 50, 1);
+          is_red = false;
+        } else {
+          xw->fillRectangle(430, 430, 50, 50, 2);
+          is_red = true;
+        }
+
 			  if (board_array[i][j] == nullptr){
 				  if ((j + i) % 2 == 1) { xw->fillRectangle(j * 50, i * 50, 50, 50, 9);}
 				  else { xw->fillRectangle(j * 50, i * 50, 50, 50, 8); }
@@ -41,8 +42,10 @@ void GraphicsObserver::notify(string result)
           xw->fillRectangle(j * 50, i * 50, 50, 50, 0);
           xw->drawString(j * 50 + 25, i * 50 + 25, p);
 			  }
+        xw->drawString(100, 455, "Please wait, the board is being updated");
       }
     }
+    xw->fillRectangle(100, 430, 250, 50, 0);
   }else {
     // the x position starts from 0, from left
     // the y position starts from 0, from top
