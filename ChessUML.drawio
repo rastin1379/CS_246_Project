@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-12-15T15:45:48.175Z" agent="5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36" etag="zWSDg3J7PXWT3FQVLEZe" version="15.9.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-12-15T16:01:30.213Z" agent="5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36" etag="Lt7bvz1fosv8-T5XDSQ8" version="15.9.6" type="github">
   <diagram id="GS2cKgzN8PQniIcKK5sv" name="Page-1">
-    <mxGraphModel dx="1528" dy="1142" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="583" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1834" dy="1370" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="583" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -374,6 +374,9 @@
         </mxCell>
         <mxCell id="l25iDoZ3VzxMmjfQ-p8q-23" value="+ distance_squared (Position p) : int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontColor=#000000;html=1;" vertex="1" parent="l25iDoZ3VzxMmjfQ-p8q-22">
           <mxGeometry y="26" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="l25iDoZ3VzxMmjfQ-p8q-27" value="Model" style="shape=umlFrame;whiteSpace=wrap;html=1;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="30" y="480" width="1100" height="1120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
