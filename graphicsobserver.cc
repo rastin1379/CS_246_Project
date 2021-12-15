@@ -7,7 +7,6 @@
 using namespace std;
 
 GraphicsObserver::GraphicsObserver(Board * board) : board{board}, 
- // xw{new Xwindow(480, 480)}
   xw{make_shared<Xwindow>(480, 480)}
 {
   board->attach(this);
@@ -20,9 +19,16 @@ GraphicsObserver::~GraphicsObserver()
 
 void GraphicsObserver::notify(string result)
 {
+  if (is_red){
+    xw->fillRectangle(430, 430, 50, 50, 1);
+    is_red = false;
+  } else {
+    xw->fillRectangle(430, 430, 50, 50, 2);
+    is_red = true;
+  }
   std::vector<std::vector<std::shared_ptr<Piece>>> board_array = board->get_board();
 
-  if(board->get_game_mode() == "setup" || board->get_move_size() == 0){
+  if(board->get_game_mode() == "setup" || board->get_move_size() == 0 || result[0] == 'u'){
 	  for (int i = 0; i < 8; ++i) {
 		  for (int j = 0; j < 8; ++j) {
 			  if (board_array[i][j] == nullptr){
@@ -37,8 +43,7 @@ void GraphicsObserver::notify(string result)
 			  }
       }
     }
-    
-  } else {
+  }else {
     // the x position starts from 0, from left
     // the y position starts from 0, from top
     Move last_move = board->get_last_move();

@@ -11,6 +11,7 @@ class GraphicsObserver : public Observer
   Board * board;
   //Xwindow *xw = nullptr;
   std::shared_ptr<Xwindow> xw = nullptr;
+  bool is_red = false;
 public:
   GraphicsObserver(Board * board);
   void notify(std::string result) override;
