@@ -49,7 +49,7 @@ private:
 	bool is_stalemate(char color);
 	bool can_piece_move(Position p);
 	std::string game_mode;
-
+	void change_turn();
 public:
 	Board();
 	std::vector<std::vector<std::shared_ptr<Piece>>> get_board();
@@ -76,7 +76,6 @@ public:
 	int piece_counts();
 	void resign();
 	char get_turn();
-	void change_turn();
 	Position get_position_piece(char name);
 };
 

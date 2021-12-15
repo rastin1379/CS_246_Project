@@ -141,7 +141,7 @@ bool Board::can_piece_move(Position p)
 	{
 		for (int j = 0; j < board_size; ++j)
 		{
-			if ((i != p.get_y() && j != p.get_x()) &&
+			if ((i != p.get_y() || j != p.get_x()) &&
 					board[p.get_y()][p.get_x()]->is_valid_move(this, p, Position(j, i)))
 			{
 				return true;
@@ -272,21 +272,25 @@ void Board::undo()
 		if (last_move.get_to().get_x() == 6 && last_move.get_to().get_y() == 0)
 		{
 			board[0][7] = board[0][5];
+			board[0][7]->sub_move_counts();
 			board[0][5] = nullptr;
 		}
 		if (last_move.get_to().get_x() == 2 && last_move.get_to().get_y() == 0)
 		{
 			board[0][0] = board[0][3];
+			board[0][0]->sub_move_counts();
 			board[0][3] = nullptr;
 		}
 		if (last_move.get_to().get_x() == 6 && last_move.get_to().get_y() == 7)
 		{
-			board[7][0] = board[7][5];
+			board[7][7] = board[7][5];
+			board[7][7]->sub_move_counts();
 			board[7][5] = nullptr;
 		}
 		else
 		{
-			board[7][7] = board[7][3];
+			board[7][0] = board[7][3];
+			board[7][0]->sub_move_counts();
 			board[7][3] = nullptr;
 		}
 	}
