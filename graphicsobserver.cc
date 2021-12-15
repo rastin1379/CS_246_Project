@@ -65,7 +65,7 @@ void GraphicsObserver::notify(string result)
     } else {
       // else 
       // prints white
-      xw->fillRectangle(from_x * 50, from_y * 50, 10, 10, 8);
+      xw->fillRectangle(from_x * 50, from_y * 50, 50, 50, 8);
     }
     
     // 3. add the piece to the "to" position
@@ -73,5 +73,52 @@ void GraphicsObserver::notify(string result)
     p += last_move.get_piece()->get_type();
     xw->fillRectangle(to.get_x() * 50, to.get_y() * 50, 50, 50, 0);
     xw->drawString(to.get_x() * 50 + 25, to.get_y() * 50 + 25, p);
+
+    if(last_move.is_en_passant()){
+      int step = (last_move.get_piece()->get_color() == 'w') ? -1 : 1;
+      int passant_x = last_move.get_to().get_x();
+      int passant_y = last_move.get_to().get_y() - step;
+      if ((passant_x + passant_y) % 2 == 1) { xw->fillRectangle(passant_x * 50, passant_y * 50, 50, 50, 9);}
+			else { xw->fillRectangle(passant_x * 50, passant_y * 50, 50, 50, 8); }
+    }
+
+    if (last_move.is_castle()){
+      
+      if (last_move.get_to().get_x() == 6 && last_move.get_to().get_y() == 7){
+        //move the rook
+        xw->fillRectangle(5 * 50, 7 * 50, 50, 50, 0);
+        xw->drawString(5 * 50 + 25, 7 * 50 + 25, "R");
+
+        //delete old rook
+        xw->fillRectangle(7 * 50, 7 * 50, 50, 50, 8);
+      }
+
+      if (last_move.get_to().get_x() == 2 && last_move.get_to().get_y() == 7){
+        //move the rook
+        xw->fillRectangle(3 * 50, 7 * 50, 50, 50, 0);
+        xw->drawString(3 * 50 + 25, 7 * 50 + 25, "R");
+
+        //delete old rook
+        xw->fillRectangle(0 * 50, 7 * 50, 50, 50, 9);
+      }
+
+      if (last_move.get_to().get_x() == 6 && last_move.get_to().get_y() == 0){
+        //move the rook
+        xw->fillRectangle(5 * 50, 0 * 50, 50, 50, 0);
+        xw->drawString(5 * 50 + 25, 0 * 50 + 25, "r");
+
+        //delete old rook
+        xw->fillRectangle(7 * 50, 0 * 50, 50, 50, 9);
+      }
+
+      if (last_move.get_to().get_x() == 2 && last_move.get_to().get_y() == 0){
+        //move the rook
+        xw->fillRectangle(3 * 50, 0 * 50, 50, 50, 0);
+        xw->drawString(3 * 50 + 25, 0 * 50 + 25, "r");
+
+        //delete old rook
+        xw->fillRectangle(0 * 50, 0 * 50, 50, 50, 8);
+      }
+    }
   }
 }
