@@ -13,7 +13,7 @@ void ChessView::run()
 	vector<shared_ptr<GraphicsObserver>> graphic_observers;
 
 	observers.push_back(make_shared<TextObserver>(board));
-	//graphic_observers.push_back(make_shared<GraphicsObserver>(board));
+	graphic_observers.push_back(make_shared<GraphicsObserver>(board));
 	ChessController controller = ChessController(board);
 	while (cin >> command)
 	{
