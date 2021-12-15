@@ -21,6 +21,7 @@ GraphicsObserver::~GraphicsObserver()
 
 void GraphicsObserver::notify(string result)
 {
+  if (result == "sr") { return; }
   std::vector<std::vector<std::shared_ptr<Piece>>> board_array = board->get_board();
 
   if(board->get_game_mode() == "setup" || board->get_move_size() == 0 || result[0] == 'u'){

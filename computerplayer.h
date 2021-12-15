@@ -16,7 +16,9 @@ class ComputerPlayer {
 	std::vector<std::vector<Position>> get_check_moves
                 (Board * board_obj, std::vector<std::vector<Position>> legal_moves);
 	std::vector<std::vector<Position>> get_avoid_capture_moves
-		(Board * board_obj, std::vector<std::vector<Position>> legal_moves);	
+		(Board * board_obj, std::vector<std::vector<Position>> legal_moves);
+	std::vector<std::vector<Position>> get_checkmate_moves
+		(Board * board_obj, std::vector<std::vector<Position>> legal_moves);
 	int get_random(int a, int b);
 	int count_attackable_pieces(Board * board_obj);	
 	public:

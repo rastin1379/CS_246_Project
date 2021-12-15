@@ -1,5 +1,4 @@
 #include "level3.h"
-#include <iostream>
 #include "computerplayer.h"
 #include "position.h"
 #include "board.h"

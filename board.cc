@@ -6,8 +6,6 @@
 #include "level2.h"
 #include "level3.h"
 #include "level4.h"
-#include <iostream>
-
 using namespace std;
 
 Board::Board()
@@ -105,11 +103,10 @@ string Board::analyze_state()
 		return "n";
 	}
 	// stalemate
-	if (white_in_stalemate || black_in_stalemate)
-	{
-		return "s";
-	}
-
+        if ((white_in_stalemate || black_in_stalemate) && !white_in_check && !black_in_check)
+        {
+                return "s";
+        }
 	if ((turn == 'w' && white_in_check) ||
 			(turn == 'b' && black_in_check))
 	{

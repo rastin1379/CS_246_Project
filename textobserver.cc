@@ -20,6 +20,7 @@ TextObserver::~TextObserver(){
 }
 
 void TextObserver::notify(string result) {
+	if (result != "sr") {
 	std::vector<std::vector<std::shared_ptr<Piece>>> board_array 
 		= board->get_board();
 	for (int i = 0; i < board_size; ++i) {
@@ -58,8 +59,10 @@ void TextObserver::notify(string result) {
 	else if (result == "rb" || result == "urb") {
 		cout << "Black wins!" << endl;
 	}
+	}
 	if (result == "s" || result == "ew" || result == "eb" || 
-			result == "us" || result == "uew" || result == "ueb") {
+			result == "us" || result == "uew" || result == "ueb" || result == "sr" ||
+			result == "rw" || result == "rb") {
 		map<string, int> scores = board->get_scores();
 		cout << endl << "Final Score:" << endl;
 		map<string, int>::iterator it;

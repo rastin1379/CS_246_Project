@@ -2,8 +2,8 @@
 #include <vector>
 #include <memory>
 #include "board.h"
-#include <iostream>
 #include "position.h"
+#include "string.h"
 #include <random>
 
 using namespace std;
@@ -28,7 +28,6 @@ vector<vector<Position>> ComputerPlayer::get_legal_moves(Board * board_obj, char
 							try {
 								board_obj->move(Position(j, i), Position(n, m), true);
 							} catch (GameError e) {
-								cout << "j i n m #" << j << " " << i << " " << n << " " << m << endl;
 								throw;
 							}
 							Position king_position = board_obj->get_position_piece(king);
@@ -91,6 +90,22 @@ vector<vector<Position>> ComputerPlayer::get_avoid_capture_moves (Board * board_
 		board_obj->undo();
 	}
 	return avoid_capture_moves;
+}
+
+vector<vector<Position>> ComputerPlayer::get_checkmate_moves (Board * board_obj, 
+		std::vector<std::vector<Position>> legal_moves) {
+	vector<vector<Position>> checkmate_moves;
+	int size = legal_moves.size();
+	string result = "e";
+	result += board_obj->get_turn();
+	for (int i = 0; i < size; ++i) {
+		board_obj->move(legal_moves[i][0], legal_moves[i][1], true);
+		if (board_obj->analyze_state() == result) {
+			checkmate_moves.push_back(legal_moves[i]);		
+		}	
+		board_obj->undo();
+	}
+	return checkmate_moves;
 }
 
 

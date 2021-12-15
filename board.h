@@ -51,6 +51,7 @@ private:
 	bool can_piece_move(Position p);
 	std::string game_mode;
 	void change_turn();
+	void clean_board();
 public:
 	~Board();
 	Board();
@@ -69,7 +70,6 @@ public:
 	void undo();
 	void full_undo();
 	std::map<std::string, int> get_scores();
-	void clean_board();
 	void set_game_mode(std::string mode);
 	std::string get_game_mode();
 	Move get_last_move();
