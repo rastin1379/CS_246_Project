@@ -9,12 +9,11 @@ void ChessView::run()
 {
 	string command;
 	auto board = make_shared<Board>();
-	vector<shared_ptr<TextObserver>> observers;
-	vector<shared_ptr<GraphicsObserver>> graphic_observers;
+	vector<shared_ptr<Observer>> observers;
 
-	observers.push_back(make_shared<TextObserver>(board));
-	graphic_observers.push_back(make_shared<GraphicsObserver>(board));
-	ChessController controller = ChessController(board);
+	observers.push_back(make_shared<TextObserver>(board.get()));
+	observers.push_back(make_shared<GraphicsObserver>(board.get()));
+	ChessController controller = ChessController(board.get());
 	while (cin >> command)
 	{
 		if (command == "game")

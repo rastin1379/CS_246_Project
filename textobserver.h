@@ -7,10 +7,10 @@
 
 class TextObserver : public Observer
 {
-	std::shared_ptr<Board> board;
+	Board * board;
 
 	public:
-  	TextObserver(std::shared_ptr<Board> board);
+  	TextObserver(Board * board);
   	void notify(std::string result) override;
   	~TextObserver();
 };

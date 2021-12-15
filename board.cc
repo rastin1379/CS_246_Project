@@ -18,6 +18,10 @@ Board::Board()
 	make_board_empty();
 }
 
+Board::~Board() {
+	board.clear();		
+}
+
 void Board::set_game_mode(std::string mode)
 {
 	game_mode = mode;

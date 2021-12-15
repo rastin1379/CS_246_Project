@@ -51,6 +51,7 @@ private:
 	std::string game_mode;
 	void change_turn();
 public:
+	~Board();
 	Board();
 	std::vector<std::vector<std::shared_ptr<Piece>>> get_board();
 	void add_player(std::string player, char color);

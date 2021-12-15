@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TextObserver::TextObserver(shared_ptr<Board> board) : board{board}
+TextObserver::TextObserver(Board * board) : board{board}
 {
 	board->attach(this);
 }

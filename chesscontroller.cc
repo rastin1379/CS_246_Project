@@ -12,7 +12,7 @@
 
 using namespace std;
 
-ChessController::ChessController(std::shared_ptr<Board> board): board{board} {};
+ChessController::ChessController(Board * board): board{board} {};
 
 void ChessController::start(string player1, string player2) {
 	if (board->get_game_mode() != "pre_game") {

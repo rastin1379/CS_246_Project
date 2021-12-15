@@ -7,11 +7,11 @@
 
 class ChessController {
 	private:
-	std::shared_ptr<Board> board;	
+	Board * board;	
 	Position make_position(std::string point);
 
 	public:
-	ChessController(std::shared_ptr<Board> board);
+	ChessController(Board * board);
 	void start(std::string player1, std::string player2);
 	void move(std::string commands);
 	void undo();

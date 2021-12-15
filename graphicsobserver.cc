@@ -6,8 +6,9 @@
 
 using namespace std;
 
-GraphicsObserver::GraphicsObserver(shared_ptr<Board> board) : board{board}, 
-  xw{new Xwindow(480, 480)}
+GraphicsObserver::GraphicsObserver(Board * board) : board{board}, 
+ // xw{new Xwindow(480, 480)}
+  xw{make_shared<Xwindow>(480, 480)}
 {
   board->attach(this);
 }
