@@ -313,6 +313,9 @@ void Board::computer_move() {
 
 void Board::move(Position from, Position to, bool is_temp_move)
 {
+	if (computers[turn] != nullptr) {
+		throw GameError{"computer turn"};
+	}
 	if (board[from.get_y()][from.get_x()] == nullptr)
 	{
 		throw GameError{"no piece detected"};

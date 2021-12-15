@@ -12,7 +12,7 @@ void ChessView::run()
 	vector<shared_ptr<Observer>> observers;
 
 	observers.push_back(make_shared<TextObserver>(board.get()));
-	//observers.push_back(make_shared<GraphicsObserver>(board.get()));
+	observers.push_back(make_shared<GraphicsObserver>(board.get()));
 	ChessController controller = ChessController(board.get());
 	while (cin >> command)
 	{
@@ -114,6 +114,5 @@ void ChessView::run()
                                 cout << "game error: " << ge.get_message() << endl;
                         }
 		}
-		if (command == "setup") {}
 	}
 }
