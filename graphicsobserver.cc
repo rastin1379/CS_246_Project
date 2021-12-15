@@ -20,8 +20,9 @@ GraphicsObserver::~GraphicsObserver()
 
 void GraphicsObserver::notify(string result)
 {
+  std::vector<std::vector<std::shared_ptr<Piece>>> board_array = board->get_board();
+
   if(board->get_game_mode() == "setup" || board->get_move_size() == 0){
-    std::vector<std::vector<std::shared_ptr<Piece>>> board_array = board->get_board();
 	  for (int i = 0; i < 8; ++i) {
 		  for (int j = 0; j < 8; ++j) {
 			  if (board_array[i][j] == nullptr){
@@ -120,5 +121,17 @@ void GraphicsObserver::notify(string result)
         xw->fillRectangle(0 * 50, 0 * 50, 50, 50, 8);
       }
     }
+
+    //promotion
+    if ((board_array[last_move.get_to().get_y()][last_move.get_to().get_x()]->get_color() == 'w' && last_move.get_to().get_y() == 0) || 
+        (board_array[last_move.get_to().get_y()][last_move.get_to().get_x()]->get_color() == 'b' && last_move.get_to().get_y() == 7)){
+          if (board_array[last_move.get_to().get_y()][last_move.get_to().get_x()]->get_color() == 'w'){
+            xw->fillRectangle(last_move.get_to().get_x() * 50, last_move.get_to().get_y() * 50, 50, 50, 0);
+            xw->drawString(last_move.get_to().get_x() * 50 + 25, last_move.get_to().get_y() * 50 + 25, "Q");
+          } else {
+            xw->fillRectangle(last_move.get_to().get_x() * 50, last_move.get_to().get_y() * 50, 50, 50, 0);
+            xw->drawString(last_move.get_to().get_x() * 50 + 25, last_move.get_to().get_y() * 50 + 25, "q");
+          }
+      }
   }
 }
