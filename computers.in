@@ -1,0 +1,25 @@
+setup
++ K a1
++ k a8
++ Q h7
++ N c5
++ P h4
++ R g2
++ n e3
++ b c3
+- c3
+done
+game computer4 rastin
+move
+setup
++ K a1
++ k a8
++ Q h7
++ N c5
++ P h4
++ R g2
++ n e3
+= b
+done
+game rastin computer2
+move
